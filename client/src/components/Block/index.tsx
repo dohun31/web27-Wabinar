@@ -25,6 +25,7 @@ interface BlockProps {
 
 console.log('ci-test');
 console.log('ci-test');
+console.log('ci-test');
 
 function Block({ id, index, onKeyDown, registerRef }: BlockProps) {
   const { momSocket: socket } = useSocketContext();
