@@ -23,6 +23,8 @@ interface BlockProps {
   registerRef: (arg: React.RefObject<HTMLElement>) => void;
 }
 
+console.log('ci-test');
+
 function Block({ id, index, onKeyDown, registerRef }: BlockProps) {
   const { momSocket: socket } = useSocketContext();
 
