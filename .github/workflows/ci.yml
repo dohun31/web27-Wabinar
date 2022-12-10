@@ -1,21 +1,18 @@
-name: ci
+name: CI
 
-on: push
+on:
+  - push
 
 jobs:
-  build:
-    name: Build and test
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
-        node-version: [16, 18]
-
-    runs-on: ${{ matrix.os }}
-
+  ci:
+    runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v3
-      - name: Use node.js ${{ matrix.node-version }}
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
         uses: actions/setup-node@v3
+
       - name: Cache dependencies
         id: cache
         uses: actions/cache@v3
@@ -23,6 +20,17 @@ jobs:
           path: '**/node_modules'
           restore-keys: |
             ${{ runner.os }}-node-
+
       - name: Install Dependencies
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
+
+      # 각 step를 순차적으로 수행합니다.
+      - name: Run lint
+        run: npm run lint
+
+      - name: Run test
+        run: npm run test
+
+      - name: Run build
+        run: npm run build
