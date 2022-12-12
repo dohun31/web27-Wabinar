@@ -22,6 +22,7 @@ jobs:
 
       - name: Cache dependencies
         id: cache
+        if: runner.os != 'Windows'
         uses: actions/cache@v3
         with:
           # cache의 대상을 정합니다. npm에서 의존성이 설치되는 디렉터리인 node_modules를 대상으로 합니다.
