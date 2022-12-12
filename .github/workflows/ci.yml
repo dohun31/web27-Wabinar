@@ -28,13 +28,7 @@ jobs:
           ${{ runner.os }}-build-${{ env.cache-name }}-
           ${{ runner.os }}-build-
           ${{ runner.os }}-
-      - name: update cache on every commit
-        uses: actions/cache@v3
-        with:
-          path: prime-numbers
-          key: primes-${{ runner.os }}-${{ github.run_id }} # Can use time based key as well
-          restore-keys: |
-            primes-${{ runner.os }}
+
       - name: Install Dependencies
         # 이전의 cache가 없다면 의존성을 설치합니다.
         if: steps.cache.outputs.cache-hit != 'true'
